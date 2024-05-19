@@ -6,14 +6,13 @@ public class SerpentsEtEchelles {
 
 	public static void main(String[] args) { 
 		
-		int nbrJoueur = verifierLeNbrDeJoueur(Integer.parseInt(args[0]));
+		int nbrJoueur = verifierLeNbrDeJoueur(Integer.parseInt(args[0])); // entree le nombre des joueurs
 		
-		System.out.println(args[0]);
 		TableauDeJeu tableau = new TableauDeJeu();
 		LinkedList<Joueur> joueurs = new LinkedList<Joueur>();
 		boolean finDepartie = false;
-		Joueur joueurCourrant=null;
-		 
+		Joueur joueurCourrant=null; 
+		
          //à faire: lire le nombre de joueurs dans la ligne de commandes, les ajouter dans la liste chainée.
 	    while (nbrJoueur != 0) { 
 			joueurs.add(new Joueur()); 
@@ -23,16 +22,14 @@ public class SerpentsEtEchelles {
 	    //À faire, tant qu'aucun joueur n'atteint la case 100, la bouche principale du jeu fait avancer le joueur courrant. 
 	    //Chaque itéaration de la boucle correspond au tour de 1 joueur.    
 	    // pendant son tour, le joueur role, un 1 (1-6) avance du nombre de cases indiqué, et, si il tombe sur un serpent ou une échelle, 
-	    //suis celle-ci. 
-	   
-	  //  tant
+	    //suis celle-ci.  
 	    while(!finDepartie){  
 	    	
 	    	for (Joueur joueurCourrant_ : joueurs) { 
 	    		
 	    		joueurCourrant = joueurCourrant_;
 	    		
-	    		System.out.println("Tour de " + joueurCourrant.getNom() ); 
+	    		System.out.println("Tour de " + joueurCourrant.getNom()); 
 	    		
 	    		//calculer la nouvelle position du joueur courent 
 	    		int nouvellePosition = joueurCourrant.getPosition() +  rouleLeDe();
@@ -40,17 +37,13 @@ public class SerpentsEtEchelles {
 	    		//voir la valuer de de System.out.println(roulerDe);
 	    		
 	    		//verifier si la position est superieur à 99
-	    		if(nouvellePosition > tableau.getTableau().length-1) {
-	    			nouvellePosition = genererAleatoire();
+	    		if(tableau.verifierPosition(nouvellePosition)) {
+	    			nouvellePosition = genererAleatoire(); //95-99
 	    		}
 	    		// modifier la position
-	    		if(tableau.getTableau()[nouvellePosition].isType()) {	    			
-	    			joueurCourrant.setPosition(tableau.getTableau()[nouvellePosition].getDestination());
-	    		}else {
-	    			joueurCourrant.setPosition(nouvellePosition);
-	    		}    		
+	    		joueurCourrant.setPosition(tableau.verifierEtModifierPosition(nouvellePosition));	    		     		
 	    		
-				if (joueurCourrant.getPosition() == tableau.getTableau().length - 1) {
+				if (tableau.estGagnant(joueurCourrant.getPosition())) {
 					finDepartie = true;
 					break;
 				}
@@ -59,9 +52,9 @@ public class SerpentsEtEchelles {
 			} 
 	   }	
 	    
-	    if (finDepartie) {
-	    	System.out.println("Le joueur " + joueurCourrant.getNom() + " a gagné position : " + joueurCourrant.getPosition());
-		}
+	     
+	    System.out.println("Le joueur " + joueurCourrant.getNom() + " a gagné. Position : " + joueurCourrant.getPosition());
+		 
  
 
  	    	

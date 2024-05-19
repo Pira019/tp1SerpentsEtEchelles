@@ -26,6 +26,24 @@ public class TableauDeJeu {
     	return Tableau;
     	
     }
+   
+ //verifier si la position est superieur à la taille du Tuile(99) 
+   protected boolean verifierPosition(int nouvellePosition) {
+	   return nouvellePosition > Tableau.length -1;
+   }
+   
+   //// retourner la position si c'est un serpent ou non
+   protected int verifierEtModifierPosition(int position) {
+	   Tuile tuille = Tableau[position];
+	   if(tuille.isType()) {
+		   return tuille.getDestination();
+	   }
+	   return position;
+   }
+   
+   protected boolean estGagnant(int position) {
+	   return position == Tableau.length - 1;
+   }
 
 }
 
